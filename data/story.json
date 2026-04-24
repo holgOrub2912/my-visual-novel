@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "title": "Mi Novela Visual"
+  },
+  "scenes": {
+    "parte1_intro": {
+      "id": "parte1_intro",
+      "type": "dialogue",
+      "background": "",
+      "music": "",
+      "dialogues": [
+        { "character": "Narrador", "text": "El bosque estaba en silencio...", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "¿Dónde estoy?",                  "emotion": "confused" },
+        { "character": "Narrador", "text": "Una voz resonó entre los árboles.", "emotion": "neutral" }
+      ],
+      "nextScene": "parte1_minigame",
+      "onEnter": { "setFlag": "saw_forest" }
+    },
+
+    "parte1_minigame": {
+      "id": "parte1_minigame",
+      "type": "minigame",
+      "minigameType": "quiz",
+      "config": {
+        "question": "¿Qué encontró el héroe al despertar en el bosque?",
+        "options": ["Una espada", "Un mapa", "Una llave", "Nada"],
+        "correctIndex": 2
+      },
+      "onComplete": { "setFlag": "parte1_complete", "addPoints": 100 },
+      "nextScene": "parte2_intro"
+    },
+
+    "parte2_intro": {
+      "id": "parte2_intro",
+      "type": "dialogue",
+      "background": "",
+      "music": "",
+      "dialogues": [
+        { "character": "Narrador", "text": "El castillo apareció entre la niebla.", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "Debo entrar.",                           "emotion": "determined" },
+        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse?",            "emotion": "stern" }
+      ],
+      "requiredFlags": ["parte1_complete"],
+      "nextScene": "parte2_minigame",
+      "onEnter": { "setFlag": "saw_castle" }
+    },
+
+    "parte2_minigame": {
+      "id": "parte2_minigame",
+      "type": "minigame",
+      "minigameType": "puzzle",
+      "config": {
+        "pieces": ["🔑", "🗺️", "📜", "💎"],
+        "correctOrder": ["📜", "🗺️", "🔑", "💎"]
+      },
+      "onComplete": { "setFlag": "parte2_complete", "addPoints": 150 },
+      "nextScene": "parte3_intro"
+    },
+
+    "parte3_intro": {
+      "id": "parte3_intro",
+      "type": "dialogue",
+      "background": "",
+      "music": "",
+      "dialogues": [
+        { "character": "Narrador", "text": "La sala final. El destino aguarda.", "emotion": "tense" },
+        { "character": "Héroe",    "text": "No hay vuelta atrás.",               "emotion": "resolved" },
+        { "character": "Villano",  "text": "Bienvenido a tu fin.",               "emotion": "menacing" }
+      ],
+      "requiredFlags": ["parte2_complete"],
+      "nextScene": "parte3_minigame",
+      "onEnter": { "setFlag": "saw_final_room" }
+    },
+
+    "parte3_minigame": {
+      "id": "parte3_minigame",
+      "type": "minigame",
+      "minigameType": "timing",
+      "config": {
+        "targetMs": 2000,
+        "windowMs": 300,
+        "duration": 4000
+      },
+      "onComplete": { "setFlag": "parte3_complete", "addPoints": 200 },
+      "nextScene": "ending"
+    },
+
+    "ending": {
+      "id": "ending",
+      "type": "ending",
+      "background": "",
+      "music": "",
+      "dialogues": [
+        { "character": "Narrador", "text": "La oscuridad fue vencida.",             "emotion": "peaceful" },
+        { "character": "Héroe",    "text": "Por fin... en casa.",                   "emotion": "relieved" },
+        { "character": "Narrador", "text": "Y así terminó la historia del héroe.", "emotion": "neutral" }
+      ],
+      "nextScene": null
+    }
+  }
+}
