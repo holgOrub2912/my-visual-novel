@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { QuizConfig } from '../../types/game';
 
 interface Props {
@@ -26,12 +26,12 @@ export default function QuizMinigame({ config, onComplete, onFail }: Props) {
         setAnswered(false);
         onFail();
       }
-    }, 800);
+    }, 600);
   };
 
   const getOptionStyle = (index: number): string => {
     if (!answered || selected !== index) {
-      return 'border border-pink-300 bg-white/20';
+      return 'border-2 border-pink-300 bg-white';
     }
     return index === config.correctIndex
       ? 'bg-green-400 border border-green-500'
@@ -39,29 +39,33 @@ export default function QuizMinigame({ config, onComplete, onFail }: Props) {
   };
 
   return (
-    <View className="flex-1 items-center justify-center px-8 bg-pink-50">
-      {/* Pregunta */}
-      <View className="mb-8 rounded-2xl bg-white px-6 py-5 shadow-sm w-full">
-        <Text className="text-center text-base font-bold text-navy-800">
-          {config.question}
-        </Text>
-      </View>
-
-      {/* Opciones */}
-      <View className="w-full gap-3">
-        {config.options.map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => handleSelect(index)}
-            disabled={answered}
-            className={`rounded-xl px-5 py-4 ${getOptionStyle(index)}`}
-          >
-            <Text className="text-center text-sm font-semibold text-navy-800">
-              {option}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+  <ScrollView 
+    className="flex-1 bg-pink-50"
+    contentContainerClassName="flex-grow items-center justify-center px-8 py-12"
+    showsVerticalScrollIndicator={false}
+  >
+    {/* Pregunta */}
+    <View className="mb-8 rounded-2xl bg-white px-6 py-5 shadow-sm w-full">
+      <Text className="text-center text-base font-bold text-navy-800">
+        {config.question}
+      </Text>
     </View>
-  );
+
+    {/* Opciones */}
+    <View className="w-full gap-3">
+      {config.options.map((option, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => handleSelect(index)}
+          disabled={answered}
+          className={`rounded-xl px-5 py-4 ${getOptionStyle(index)}`}
+        >
+          <Text className="text-center text-sm font-semibold text-navy-800">
+            {option}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  </ScrollView>
+);
 }

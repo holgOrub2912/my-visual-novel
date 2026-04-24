@@ -32,7 +32,7 @@ export default function TimingMinigame({ config, onComplete, onFail }: Props) {
     });
 
     animRef.current.start(({ finished }) => {
-      // Si terminó sin que el usuario tocara → fallo
+      // Si termino sin que tocara pues fallo
       if (finished && result === 'idle') {
         setResult('fail');
         setTimeout(onFail, 600);
@@ -60,7 +60,7 @@ export default function TimingMinigame({ config, onComplete, onFail }: Props) {
     }
   };
 
-  // Posición de la zona objetivo sobre la barra (0–1)
+  // Posicion de la zona objetivo sobre la barra (0–1)
   const targetRatio = config.targetMs / config.duration;
 
   const barColor = progress.interpolate({
@@ -110,7 +110,7 @@ export default function TimingMinigame({ config, onComplete, onFail }: Props) {
         </Text>
       )}
 
-      {/* Botón de toque */}
+      {/* Boton de toque */}
       <TouchableOpacity
         onPress={handleTap}
         activeOpacity={0.8}

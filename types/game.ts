@@ -1,17 +1,17 @@
-// ─── Estado de la máquina de estados ─────────────────────────────────────────
+// Maquina de estados improvisada
 export type GamePhase = 'reading' | 'minigame' | 'transition' | 'ended';
 
-// ─── Tipos de minijuego ───────────────────────────────────────────────────────
+// Tipos de minijuego 
 export type MinigameType = 'quiz' | 'puzzle' | 'timing';
 
-// ─── Diálogo ──────────────────────────────────────────────────────────────────
+// Dialogo
 export interface DialogueNode {
   character: string;
   text: string;
   emotion?: string;
 }
 
-// ─── Configuración de cada minijuego ─────────────────────────────────────────
+// Configuracion de cada minijuego
 export interface QuizConfig {
   question: string;
   options: string[];
@@ -31,7 +31,7 @@ export interface TimingConfig {
 
 export type MinigameConfig = QuizConfig | PuzzleConfig | TimingConfig;
 
-// ─── Escena ───────────────────────────────────────────────────────────────────
+// Escena 
 export interface Scene {
   id: string;
   type: 'dialogue' | 'minigame' | 'ending';
@@ -46,13 +46,13 @@ export interface Scene {
   onComplete?: { setFlag?: string; addPoints?: number };
 }
 
-// ─── Datos de historia ────────────────────────────────────────────────────────
+// Datos de historia 
 export interface StoryData {
   metadata: { version: string; title: string };
   scenes: Record<string, Scene>;
 }
 
-// ─── Progreso guardado (un slot) ──────────────────────────────────────────────
+// Progreso guardado (un slot)
 export interface SaveSlot {
   slotId: 1 | 2 | 3;
   currentSceneId: string;
@@ -67,22 +67,22 @@ export interface SaveSlot {
   createdAt: string;     // ISO date
 }
 
-// ─── Estado completo del store ────────────────────────────────────────────────
+// Estado completo del store 
 export interface GameStore {
-  // Estado de partida activa
+  // Estado de partida activa, atributos
   activeSlot: SaveSlot | null;
   currentScene: Scene;
   phase: GamePhase;
   isLoading: boolean;
 
-  // Acciones de flujo
+  // Acciones de flujo, lo que se puede hacer
   startNewGame: (slotId: 1 | 2 | 3) => Promise<void>;
   continueGame: (slotId: 1 | 2 | 3) => Promise<void>;
   nextDialog: () => void;
   completeMinigame: () => void;
   failMinigame: () => void;
 
-  // Acciones de persistencia
+  // Acciones de persistencia, el como se guarda
   saveGame: () => Promise<void>;
   loadAllSlots: () => Promise<(SaveSlot | null)[]>;
   deleteSlot: (slotId: 1 | 2 | 3) => Promise<void>;

@@ -12,6 +12,7 @@
       "dialogues": [
         { "character": "Narrador", "text": "El bosque estaba en silencio...", "emotion": "neutral" },
         { "character": "Héroe",    "text": "¿Dónde estoy?",                  "emotion": "confused" },
+        { "character": "coso",    "text": "¿Dónde estoy? 67",                  "emotion": "confused" },
         { "character": "Narrador", "text": "Una voz resonó entre los árboles.", "emotion": "neutral" }
       ],
       "nextScene": "parte1_minigame",

@@ -42,11 +42,11 @@ export default function HomeScreen() {
       {/* Imagen de portada */}
       <View className="flex-1 items-center justify-center px-8">
         <View className="mb-2 h-64 w-64 items-center justify-center rounded-full bg-pink-100 overflow-hidden">
-          {/* Reemplaza con tu imagen de portada */}
+          {/* TODO: poner una imagen linda de portada */}
           <Text className="text-8xl">📖</Text>
         </View>
 
-        {/* Título */}
+        {/* Titulo */}
         <Text className="mt-6 text-center text-3xl font-bold text-navy-800">
           Bienvenido a esta
         </Text>

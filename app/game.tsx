@@ -25,7 +25,7 @@ export default function GameScreen() {
     failMinigame,
   } = useGameStore();
 
-  // ── Forzar landscape al entrar, restaurar portrait al salir ──────────────
+  // Forzar landscape al entrar, restaurar vertical al salir
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     return () => {
@@ -33,13 +33,13 @@ export default function GameScreen() {
     };
   }, []);
 
-  // ── Guardia: si no hay slot activo, volver al menú ────────────────────────
+  // si no hay slot activo, volver al menú 
   if (!activeSlot) {
     router.replace('/');
     return null;
   }
 
-  // ── Loading ───────────────────────────────────────────────────────────────
+  // cuando estamos pasando de partes de la historia
   if (phase === 'transition') {
     return (
       <View className="flex-1 items-center justify-center bg-pink-50">
@@ -48,7 +48,7 @@ export default function GameScreen() {
     );
   }
 
-  // ── Ending ────────────────────────────────────────────────────────────────
+  // cuando terminamos
   if (phase === 'ended') {
     return (
       <View className="flex-1 items-center justify-center bg-pink-50 px-10">
@@ -69,7 +69,7 @@ export default function GameScreen() {
     );
   }
 
-  // ── Minijuego ─────────────────────────────────────────────────────────────
+  // cuando estamos en un minijuego
   if (phase === 'minigame') {
     return (
       <SafeAreaView className="flex-1 bg-pink-50">
@@ -92,7 +92,7 @@ export default function GameScreen() {
     );
   }
 
-  // ── Lectura / Diálogo ─────────────────────────────────────────────────────
+  // Para un dialogo 
   const dialogue = currentScene.dialogues?.[activeSlot.currentDialogIndex];
   const totalLines = currentScene.dialogues?.length ?? 0;
   const isLastLine = activeSlot.currentDialogIndex >= totalLines - 1;
@@ -109,14 +109,14 @@ export default function GameScreen() {
           resizeMode="cover"
         />
       ) : (
-        // Placeholder mientras no hay assets
+        // Placeholder mientras no hay nadota
         <View className="absolute inset-0 items-center justify-center bg-gray-300">
           <Text className="text-6xl">🖼️</Text>
         </View>
       )}
 
-      {/* Botón menú (top-right) */}
-      <View className="absolute right-4 top-4 z-10">
+      {/* Boton menu */}
+      <View className="flex-row justify-end px-4 pt-2">
         <TouchableOpacity
           onPress={() => router.push('/saves?mode=continue')}
           className="rounded-full bg-white/80 px-3 py-2"
@@ -125,8 +125,8 @@ export default function GameScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Caja de diálogo (bottom) */}
-      <View className="absolute bottom-0 left-0 right-0">
+      {/* Caja de dialogo */}
+      <View className="flex-1 justify-end">
         <TouchableOpacity
           activeOpacity={1}
           onPress={nextDialog}
@@ -143,7 +143,7 @@ export default function GameScreen() {
             </Text>
           </View>
 
-          {/* Botón siguiente */}
+          {/* Boton siguiente */}
           <View className="items-center justify-center rounded-xl bg-white px-4 py-2">
             <Text className="text-xs font-bold text-pink-500">
               {isLastLine && currentScene.nextScene ? 'Continuar ▶' : 'Siguiente ▶'}
@@ -151,7 +151,7 @@ export default function GameScreen() {
           </View>
         </TouchableOpacity>
 
-        {/* Indicador de progreso de diálogos */}
+        {/* Barrita de progreso de dialogos */}
         <View className="mb-2 flex-row justify-center gap-1">
           {currentScene.dialogues?.map((_, i) => (
             <View

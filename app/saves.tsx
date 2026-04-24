@@ -29,7 +29,7 @@ export default function SavesScreen() {
   const handleSlotPress = async (slotId: 1 | 2 | 3, slot: SaveSlot | null) => {
     if (mode === 'new') {
       if (slot) {
-        // Slot ocupado → confirmar sobreescritura
+        // Slot ocupado, se debería sobreescriturar
         Alert.alert(
           'Slot ocupado',
           '¿Quieres borrar este guardado y empezar de nuevo?',
@@ -52,7 +52,7 @@ export default function SavesScreen() {
       }
     } else {
       // mode === 'continue'
-      if (!slot) return; // Slot vacío → no hace nada
+      if (!slot) return; // Slot vacío, no se hace nada xd
       await continueGame(slotId);
       router.replace('/game');
     }
@@ -124,7 +124,7 @@ export default function SavesScreen() {
                 } ${isDisabled ? 'opacity-40' : 'opacity-100'}`}
               >
                 <View className="flex-row items-center gap-4">
-                  {/* Preview / ícono */}
+                  {/* Preview / icono */}
                   <View className="h-20 w-20 items-center justify-center rounded-xl bg-pink-100">
                     <Text className="text-4xl">{isEmpty ? '＋' : '📖'}</Text>
                   </View>
@@ -148,7 +148,7 @@ export default function SavesScreen() {
                     )}
                   </View>
 
-                  {/* Botón borrar (solo si tiene datos) */}
+                  {/* Boton borrar (solo si tiene datos) */}
                   {!isEmpty && (
                     <TouchableOpacity
                       onPress={() => handleDelete(slotId)}

@@ -3,18 +3,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GameStore, GamePhase, SaveSlot, Scene } from '../types/game';
 import storyData from '../data/story.json';
 
-// ─── Constantes ───────────────────────────────────────────────────────────────
+
 const FIRST_SCENE_ID = 'parte1_intro';
 const STORAGE_KEY = (slotId: number) => `@save_slot_${slotId}`;
 
-// ─── Escena inicial segura ────────────────────────────────────────────────────
+// Escena incial
 const getScene = (id: string): Scene => {
   const scene = (storyData.scenes as Record<string, Scene>)[id];
   if (!scene) throw new Error(`Escena no encontrada: ${id}`);
   return scene;
 };
 
-// ─── Slot vacío ───────────────────────────────────────────────────────────────
+
 const createSlot = (slotId: 1 | 2 | 3): SaveSlot => ({
   slotId,
   currentSceneId: FIRST_SCENE_ID,
@@ -26,14 +26,14 @@ const createSlot = (slotId: 1 | 2 | 3): SaveSlot => ({
   createdAt: new Date().toISOString(),
 });
 
-// ─── Store ────────────────────────────────────────────────────────────────────
+// estado global con zustand
 export const useGameStore = create<GameStore>((set, get) => ({
   activeSlot: null,
   currentScene: getScene(FIRST_SCENE_ID),
   phase: 'transition' as GamePhase,
   isLoading: false,
 
-  // ── Inicia partida nueva en un slot ────────────────────────────────────────
+  // iniciar nueva partida
   startNewGame: async (slotId) => {
     const slot = createSlot(slotId);
     set({
@@ -45,7 +45,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     await persistSlot(slot);
   },
 
-  // ── Continúa partida desde AsyncStorage ────────────────────────────────────
+  // continuar una partida
   continueGame: async (slotId) => {
     set({ isLoading: true });
     try {
@@ -64,7 +64,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     }
   },
 
-  // ── Avanza el diálogo o lanza transición ───────────────────────────────────
+  // avanzar dialogo o transicionar
   nextDialog: () => {
     const { currentScene, activeSlot, phase } = get();
     if (phase !== 'reading' || !activeSlot) return;
@@ -72,7 +72,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const maxIndex = (currentScene.dialogues?.length ?? 1) - 1;
 
     if (activeSlot.currentDialogIndex < maxIndex) {
-      // Hay más líneas de diálogo
+      // es decir, hay mas dialogo que mostrar
       set((state) => ({
         activeSlot: state.activeSlot
           ? { ...state.activeSlot, currentDialogIndex: state.activeSlot.currentDialogIndex + 1 }
@@ -81,9 +81,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
       return;
     }
 
-    // Fin del diálogo → transición
+    // ya no hay mas dialogo, cambiazo
     if (!currentScene.nextScene) {
-      // Es el ending
+      // se acaba
       set({ phase: 'ended' });
       return;
     }
@@ -109,7 +109,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     }, 500);
   },
 
-  // ── Minijuego completado ────────────────────────────────────────────────────
+  // Completas el minijuego
   completeMinigame: () => {
     const { currentScene, activeSlot } = get();
     if (!activeSlot || !currentScene.nextScene) return;
@@ -140,7 +140,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     persistSlot(updatedSlot);
   },
 
-  // ── Minijuego fallado → reinicia el minijuego ──────────────────────────────
+  // fallas el minijuego, te toca reiniciarlo
   failMinigame: () => {
     const { activeSlot } = get();
     if (!activeSlot) return;
@@ -156,7 +156,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({ phase: 'minigame', activeSlot: updatedSlot });
   },
 
-  // ── Guarda slot activo ─────────────────────────────────────────────────────
+  // guardar slot
   saveGame: async () => {
     const { activeSlot } = get();
     if (!activeSlot) return;
@@ -165,7 +165,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     await persistSlot(updated);
   },
 
-  // ── Carga todos los slots para la pantalla de guardados ────────────────────
+  // Carga todos los slots para la pantalla de guardados
   loadAllSlots: async () => {
     const results = await Promise.all(
       ([1, 2, 3] as const).map(async (id) => {
@@ -180,13 +180,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
     return results;
   },
 
-  // ── Borra un slot ──────────────────────────────────────────────────────────
+  // borrar
   deleteSlot: async (slotId) => {
     await AsyncStorage.removeItem(STORAGE_KEY(slotId));
   },
 }));
 
-// ─── Helper interno para persistir ───────────────────────────────────────────
+// para persistir
 async function persistSlot(slot: SaveSlot): Promise<void> {
   try {
     await AsyncStorage.setItem(STORAGE_KEY(slot.slotId), JSON.stringify(slot));
