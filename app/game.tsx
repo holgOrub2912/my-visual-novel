@@ -14,6 +14,15 @@ import { useGameStore } from '../stores/gameStore';
 import MinigameFactory from '../components/minigames/MinigameFactory'
 import { MinigameConfig, MinigameType } from '../types/game';
 
+//TODO: Ampliar esto y sacarlo de aca
+const getBackgroundSource = (bgName: string): any => {
+  const bgMap: Record<string, any> = {
+    'fondoGen': require('../assets/backgrounds/fondoGen.png')
+  };
+  
+  return bgMap[bgName] || null;
+};
+
 export default function GameScreen() {
   const router = useRouter();
   const {
@@ -104,12 +113,11 @@ export default function GameScreen() {
       {/* Fondo de escena */}
       {currentScene.background ? (
         <Image
-          source={{ uri: currentScene.background }}
+          source={getBackgroundSource(currentScene.background)}
           className="absolute inset-0 h-full w-full"
           resizeMode="cover"
         />
       ) : (
-        // Placeholder mientras no hay nadota
         <View className="absolute inset-0 items-center justify-center bg-gray-300">
           <Text className="text-6xl">🖼️</Text>
         </View>

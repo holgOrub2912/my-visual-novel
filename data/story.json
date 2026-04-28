@@ -7,7 +7,7 @@
     "parte1_intro": {
       "id": "parte1_intro",
       "type": "dialogue",
-      "background": "",
+      "background": "fondoGen",
       "music": "",
       "dialogues": [
         { "character": "Narrador", "text": "El bosque estaba en silencio...", "emotion": "neutral" },
