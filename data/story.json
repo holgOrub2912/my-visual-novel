@@ -35,12 +35,12 @@
     "parte2_intro": {
       "id": "parte2_intro",
       "type": "dialogue",
-      "background": "",
+      "background": "fondoGen2",
       "music": "",
       "dialogues": [
         { "character": "Narrador", "text": "El castillo apareció entre la niebla.", "emotion": "neutral" },
         { "character": "Héroe",    "text": "Debo entrar.",                           "emotion": "determined" },
-        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse?",            "emotion": "stern" }
+        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse?",            "emotion": "stern"}
       ],
       "requiredFlags": ["parte1_complete"],
       "nextScene": "parte2_minigame",

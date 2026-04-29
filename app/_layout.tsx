@@ -6,7 +6,8 @@ import { Stack } from 'expo-router';
 export default function Layout() {
   return (
     <SafeAreaProvider>
-      <Stack />
+       <Stack screenOptions={{ headerShown: false }}>
+      </Stack>
     </SafeAreaProvider>
   );
 }

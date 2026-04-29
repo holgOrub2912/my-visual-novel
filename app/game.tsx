@@ -17,10 +17,33 @@ import { MinigameConfig, MinigameType } from '../types/game';
 //TODO: Ampliar esto y sacarlo de aca
 const getBackgroundSource = (bgName: string): any => {
   const bgMap: Record<string, any> = {
-    'fondoGen': require('../assets/backgrounds/fondoGen.png')
+    'fondoGen': require('../assets/backgrounds/fondoGen.png'),
+    'fondoGen2': require('../assets/backgrounds/fondoGen2.png')
   };
   
   return bgMap[bgName] || null;
+};
+
+const getCharacterSprite = (character: string, emotion: string): any => {
+  // Mapeo estático de TODAS las combinaciones posibles
+  const spriteMap: Record<string, any> = {
+    'heroe/neutral': require('../assets/characters/heroe/neutral.png'),
+    'guardian/neutral': require('../assets/characters/guardian/neutral.png'),
+  };
+
+  // Mapeo de nombres a claves internas
+  const charMap: Record<string, string> = {
+    'Héroe': 'heroe',
+    'Narrador': 'narrador',
+    'Guardián': 'guardian',
+    'Villano': 'villano',
+  };
+  
+  const charKey = charMap[character] || 'heroe';
+  const key = `${charKey}/${emotion}`;
+  
+  // Retorna la imagen o fallback a neutral del héroe
+  return spriteMap[key] || spriteMap['heroe/neutral'];
 };
 
 export default function GameScreen() {
@@ -123,15 +146,27 @@ export default function GameScreen() {
         </View>
       )}
 
-      {/* Boton menu */}
-      <View className="flex-row justify-end px-4 pt-2">
+      <View className="flex-row items-center justify-between px-4 pt-2">
+        
+        <TouchableOpacity
+          onPress={() => router.replace('/')}
+          className="h-10 w-10 items-center justify-center rounded-full bg-white/80"
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Text className="text-lg font-bold text-navy-800">✕</Text>
+        </TouchableOpacity>
+
+        {/* Botón guardado  */}
         <TouchableOpacity
           onPress={() => router.push('/saves?mode=continue')}
-          className="rounded-full bg-white/80 px-3 py-2"
+          className="h-10 w-10 items-center justify-center rounded-full bg-white/80"
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Text className="text-lg">☰</Text>
         </TouchableOpacity>
       </View>
+
+    
 
       {/* Caja de dialogo */}
       <View className="flex-1 justify-end">

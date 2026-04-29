@@ -39,6 +39,16 @@ export default function HomeScreen() {
     <SafeAreaView className="flex-1 bg-pink-50">
       <StatusBar barStyle="dark-content" backgroundColor="#fff0f6" />
 
+    <View className="absolute right-4 top-10 z-10">
+      <TouchableOpacity
+        onPress={() => router.push('/about')}
+        className="h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm active:bg-pink-50"
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+      >
+        <Text className="text-lg font-bold text-pink-500">?</Text>
+      </TouchableOpacity>
+    </View>
+
       {/* Imagen de portada */}
       <View className="flex-1 items-center justify-center px-8">
         <View className="mb-2 h-64 w-64 items-center justify-center rounded-full bg-pink-100 overflow-hidden">
