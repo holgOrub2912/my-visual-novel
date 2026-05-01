@@ -89,7 +89,7 @@ export default function GameScreen() {
           ¡Historia completada!
         </Text>
         <Text className="text-center text-sm text-pink-400 mb-8">
-          Has terminado las 3 partes
+          La oscuridad fue vencida, pero no por la fuerza, sino por la perseverancia
         </Text>
         <TouchableOpacity
           onPress={() => router.replace('/')}
