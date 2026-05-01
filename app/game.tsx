@@ -24,26 +24,40 @@ const getBackgroundSource = (bgName: string): any => {
   return bgMap[bgName] || null;
 };
 
+const PLACEHOLDER = require('../assets/characters/heroe/neutral.png'); 
+
 const getCharacterSprite = (character: string, emotion: string): any => {
-  // Mapeo estático de TODAS las combinaciones posibles
-  const spriteMap: Record<string, any> = {
-    'heroe/neutral': require('../assets/characters/heroe/neutral.png'),
-    'guardian/neutral': require('../assets/characters/guardian/neutral.png'),
+  
+  if (character === 'Narrador') return null;
+
+  
+  const charFolderMap: Record<string, string> = {
+    'Héroe':    'heroe',
+    'Guardián': 'guardian',
+    'Anciano':'anciano',
+    // Añadí acá los demás personajes cuando tengas sus sprites
   };
 
-  // Mapeo de nombres a claves internas
-  const charMap: Record<string, string> = {
-    'Héroe': 'heroe',
-    'Narrador': 'narrador',
-    'Guardián': 'guardian',
-    'Villano': 'villano',
+  const folder = charFolderMap[character];
+
+  
+  if (!folder) return PLACEHOLDER;
+
+  // Mapa estático de los sprites disponibles
+  
+  const spriteMap: Record<string, any> = {
+    'heroe/neutral':    require('../assets/characters/heroe/neutral.png'),
+    'anciano/neutral': require('../assets/characters/anciano/neutral.png'),
+    // 'heroe/confused':   require('../assets/characters/heroe/confused.png'),
+    // 'heroe/determined': require('../assets/characters/heroe/determined.png'),
+    // etc.
   };
-  
-  const charKey = charMap[character] || 'heroe';
-  const key = `${charKey}/${emotion}`;
-  
-  // Retorna la imagen o fallback a neutral del héroe
-  return spriteMap[key] || spriteMap['heroe/neutral'];
+
+  const key          = `${folder}/${emotion}`;
+  const neutralKey   = `${folder}/neutral`;
+
+  // Emoción exacta o fallback a neutral del mismo personaje o placeholder
+  return spriteMap[key] ?? spriteMap[neutralKey] ?? PLACEHOLDER;
 };
 
 export default function GameScreen() {
@@ -129,6 +143,13 @@ export default function GameScreen() {
   const totalLines = currentScene.dialogues?.length ?? 0;
   const isLastLine = activeSlot.currentDialogIndex >= totalLines - 1;
 
+  const characterName = dialogue?.character ?? '';
+  const emotion       = dialogue?.emotion   ?? 'neutral';
+  const spriteSource  = getCharacterSprite(characterName, emotion);
+
+  // Esta key fuerza a desmontar/montar el Image cada vez que cambia el personaje o la emocion 
+  const spriteKey = `${characterName}-${emotion}-${activeSlot.currentDialogIndex}`;
+
   return (
     <SafeAreaView className="flex-1 bg-gray-200">
       <StatusBar hidden />
@@ -166,7 +187,20 @@ export default function GameScreen() {
         </TouchableOpacity>
       </View>
 
-    
+      {spriteSource && (
+        <Image
+          key={spriteKey}          
+          source={spriteSource}
+          style={{
+            position: 'absolute',
+            right: 16,
+            bottom: 80,           
+            height: '75%',
+            aspectRatio: 0.5,     
+          }}
+          resizeMode="contain"
+        />
+      )}
 
       {/* Caja de dialogo */}
       <View className="flex-1 justify-end">
