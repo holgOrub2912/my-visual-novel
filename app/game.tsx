@@ -18,6 +18,10 @@ import { MinigameConfig, MinigameType } from '../types/game';
 const getBackgroundSource = (bgName: string): any => {
   const bgMap: Record<string, any> = {
     'fondoGen': require('../assets/backgrounds/fondoGen.png'),
+    'bosque': require('../assets/backgrounds/bosque.png'),
+    'castillo': require('../assets/backgrounds/castillo.png'),
+    'tesoro': require('../assets/backgrounds/tesoro.png'),
+    'backroom': require('../assets/backgrounds/backroom.png'),
     'fondoGen2': require('../assets/backgrounds/fondoGen2.png')
   };
   
@@ -35,7 +39,7 @@ const getCharacterSprite = (character: string, emotion: string): any => {
     'Héroe':    'heroe',
     'Guardián': 'guardian',
     'Anciano':'anciano',
-    // Añadí acá los demás personajes cuando tengas sus sprites
+    'Villano':'villano',
   };
 
   const folder = charFolderMap[character];
@@ -47,7 +51,10 @@ const getCharacterSprite = (character: string, emotion: string): any => {
   
   const spriteMap: Record<string, any> = {
     'heroe/neutral':    require('../assets/characters/heroe/neutral.png'),
+    'heroe/confused':    require('../assets/characters/heroe/confused.png'),
     'anciano/neutral': require('../assets/characters/anciano/neutral.png'),
+    'villano/neutral': require('../assets/characters/villano/neutral.png'),
+    'guardian/neutral': require('../assets/characters/guardian/neutral.png'),
     // 'heroe/confused':   require('../assets/characters/heroe/confused.png'),
     // 'heroe/determined': require('../assets/characters/heroe/determined.png'),
     // etc.

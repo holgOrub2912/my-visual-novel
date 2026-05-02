@@ -7,13 +7,13 @@
     "parte1_intro": {
       "id": "parte1_intro",
       "type": "dialogue",
-      "background": "fondoGen",
+      "background": "bosque",
       "music": "",
       "dialogues": [
         { "character": "Narrador", "text": "El bosque estaba en silencio... Demasiado silencio", "emotion": "neutral" },
         { "character": "Héroe", "text": "¿Dónde estoy? Mi cabeza... no recuerdo nada", "emotion": "confused" },
         { "character": "Narrador", "text": "A sus pies, un viejo pergamino medio enterrado","emotion": "confused" },
-        { "character": "Héroe", "text": "¿Un mapa? No, solo un acertijo...", "emotion": "curious" },
+        { "character": "Héroe", "text": "¿Un mapa? No, solo un acertijo...", "emotion": "confused" },
         { "character": "Anciano", "text": "¡Eh, tú! No toques eso si no quieres despertar al guardián.", "emotion": "warning" },
         { "character": "Héroe",  "text": "¿Guardián? Solo busco salir de aquí.", "emotion": "defensive" },
         { "character": "Anciano", "text": "Salir... ja. El único camino es adentrarte. Responde bien y tal vez la llave aparezca", "emotion": "sly" }
@@ -38,14 +38,14 @@
     "parte2_intro": {
       "id": "parte2_intro",
       "type": "dialogue",
-      "background": "fondoGen2",
+      "background": "castillo",
       "music": "",
       "dialogues": [
         { "character": "Narrador", "text": "El castillo apareció entre la niebla, imponente y en ruinas.", "emotion": "neutral" },
-        { "character": "Héroe",    "text": "La llave encaja... la puerta se abre.", "emotion": "determined" },
-        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse a la cámara de los recuerdos?", "emotion": "stern" },
+        { "character": "Héroe",    "text": "La llave encaja... la puerta se abre.", "emotion": "confused" },
+        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse a la cámara de los recuerdos?", "emotion": "neutral" },
         { "character": "Héroe",    "text": "Vengo por el tesoro. No quiero pelea.", "emotion": "confident" },
-        { "character": "Guardián", "text": "Las palabras no abren puertas. Solo la sabiduría. Ordena estos símbolos como dicta la leyenda.", "emotion": "mysterious" }
+        { "character": "Guardián", "text": "Las palabras no abren puertas. Solo la sabiduría. Ordena estos símbolos como dicta la leyenda.", "emotion": "neutral" }
       ],
       "requiredFlags": ["parte1_complete"],
       "nextScene": "parte2_minigame",
@@ -67,16 +67,16 @@
     "parte3_intro": {
       "id": "parte3_intro",
       "type": "dialogue",
-      "background": "",
+      "background": "tesoro",
       "music": "",
       "dialogues": [
         { "character": "Narrador", "text": "La sala final. El destino aguarda en la penumbra.", "emotion": "tense" },
         { "character": "Héroe",    "text": "No hay vuelta atrás. El cofre debe estar aquí.", "emotion": "resolved" },
-        { "character": "Villano",  "text": "Bienvenido a tu fin, intruso. Llevo siglos esperando a alguien tan terco.", "emotion": "menacing" },
+        { "character": "Villano",  "text": "Bienvenido a tu fin, intruso. Llevo siglos esperando a alguien tan terco.", "emotion": "neutral" },
         { "character": "Héroe",    "text": "¡Tú! Fuiste tú quien me borró la memoria y me abandonó en el bosque.", "emotion": "angry" },
-        { "character": "Villano",  "text": "Correcto. Usarte como mano de obra barata. Pero ya que has llegado hasta aquí, te propongo un juego.", "emotion": "mocking" },
-        { "character": "Héroe",    "text": "¿Qué clase de juego?", "emotion": "suspicious" },
-        { "character": "Villano",  "text": "El de la muerte. Presiona el mecanismo en el momento exacto o el cofre explotará para siempre.", "emotion": "cruel" }
+        { "character": "Villano",  "text": "Correcto. Usarte como mano de obra barata. Pero ya que has llegado hasta aquí, te propongo un juego.", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "¿Qué clase de juego?", "emotion": "confused" },
+        { "character": "Villano",  "text": "El de la muerte. Presiona el mecanismo en el momento exacto o el cofre explotará para siempre.", "emotion": "neutral" }
       ],
       "requiredFlags": ["parte2_complete"],
       "nextScene": "parte3_minigame",
@@ -99,13 +99,13 @@
     "ending": {
       "id": "ending",
       "type": "ending",
-      "background": "",
+      "background": "backroom",
       "music": "",
       "dialogues": [
         { "character": "Narrador", "text": "ey... tu, que haces aqui? se supone que la historia ya termino...", "emotion": "peaceful" },
         { "character": "Héroe",    "text": "No necesito riquezas. Recuperé mi memoria y mi camino ...un momento...", "emotion": "relieved" },
         { "character": "Anciano",  "text": "Jugador, tu ya no tienes que estar aquí, regresa a tu mundo", "emotion": "curious" },
-        { "character": "Héroe",    "text": "¿a quien le hablas?¿quien es jugador? ", "emotion": "resolved" },
+        { "character": "Héroe",    "text": "¿a quien le hablas?¿quien es jugador? ", "emotion": "confused" },
         { "character": "Narrador", "text": "sal de aqui, ¡AHORA!", "emotion": "scared" }
       ],
       "nextScene": null
