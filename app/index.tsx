@@ -31,9 +31,13 @@ import React from 'react';
 import { Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
+
+const MENU_MUSIC = 'https://github.com/user-attachments/files/27403037/Menu.mp3';
 
 export default function HomeScreen() {
   const router = useRouter();
+  useBackgroundMusic(MENU_MUSIC);
 
   return (
     <SafeAreaView className="flex-1 bg-pink-50">

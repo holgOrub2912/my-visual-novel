@@ -8,7 +8,7 @@
       "id": "parte1_intro",
       "type": "dialogue",
       "background": "bosque",
-      "music": "",
+      "music": "https://github.com/user-attachments/files/27403043/Bosque.mp3",
       "dialogues": [
         { "character": "Narrador", "text": "El bosque estaba en silencio... Demasiado silencio", "emotion": "neutral" },
         { "character": "Héroe", "text": "¿Dónde estoy? Mi cabeza... no recuerdo nada", "emotion": "confused" },
@@ -25,6 +25,7 @@
     "parte1_minigame": {
       "id": "parte1_minigame",
       "type": "minigame",
+      "music": "https://github.com/user-attachments/files/27403039/Minijuegos.mp3",
       "minigameType": "quiz",
       "config": {
         "question": "¿Qué encontró el héroe al despertar en el bosque?",
@@ -39,7 +40,7 @@
       "id": "parte2_intro",
       "type": "dialogue",
       "background": "castillo",
-      "music": "",
+      "music": "https://github.com/user-attachments/files/27403042/Castillo.mp3",
       "dialogues": [
         { "character": "Narrador", "text": "El castillo apareció entre la niebla, imponente y en ruinas.", "emotion": "neutral" },
         { "character": "Héroe",    "text": "La llave encaja... la puerta se abre.", "emotion": "confused" },
@@ -55,6 +56,7 @@
     "parte2_minigame": {
       "id": "parte2_minigame",
       "type": "minigame",
+      "music": "https://github.com/user-attachments/files/27403039/Minijuegos.mp3",
       "minigameType": "puzzle",
       "config": {
         "pieces": ["🔑", "🗺️", "📜", "💎"],
@@ -68,7 +70,7 @@
       "id": "parte3_intro",
       "type": "dialogue",
       "background": "tesoro",
-      "music": "",
+      "music": "https://github.com/user-attachments/files/27403041/SalaTesoro.mp3",
       "dialogues": [
         { "character": "Narrador", "text": "La sala final. El destino aguarda en la penumbra.", "emotion": "tense" },
         { "character": "Héroe",    "text": "No hay vuelta atrás. El cofre debe estar aquí.", "emotion": "resolved" },
@@ -86,6 +88,7 @@
     "parte3_minigame": {
       "id": "parte3_minigame",
       "type": "minigame",
+      "music": "https://github.com/user-attachments/files/27403039/Minijuegos.mp3",
       "minigameType": "timing",
       "config": {
         "targetMs": 2000,
@@ -100,7 +103,7 @@
       "id": "ending",
       "type": "ending",
       "background": "backroom",
-      "music": "",
+      "music": "https://github.com/user-attachments/files/27403040/Backroom.mp3",
       "dialogues": [
         { "character": "Narrador", "text": "ey... tu, que haces aqui? se supone que la historia ya termino...", "emotion": "peaceful" },
         { "character": "Héroe",    "text": "No necesito riquezas. Recuperé mi memoria y mi camino ...un momento...", "emotion": "relieved" },

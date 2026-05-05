@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGameStore } from '../stores/gameStore';
 import MinigameFactory from '../components/minigames/MinigameFactory'
 import { MinigameConfig, MinigameType } from '../types/game';
+import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
 
 //TODO: Ampliar esto y sacarlo de aca
 const getBackgroundSource = (bgName: string): any => {
@@ -77,6 +78,8 @@ export default function GameScreen() {
     completeMinigame,
     failMinigame,
   } = useGameStore();
+
+  useBackgroundMusic(currentScene.music);
 
   // Forzar landscape al entrar, restaurar vertical al salir
   useEffect(() => {
