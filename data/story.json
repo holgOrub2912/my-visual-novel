@@ -7,13 +7,16 @@
     "parte1_intro": {
       "id": "parte1_intro",
       "type": "dialogue",
-      "background": "",
-      "music": "",
+      "background": "bosque",
+      "music": "https://github.com/user-attachments/files/27403043/Bosque.mp3",
       "dialogues": [
-        { "character": "Narrador", "text": "El bosque estaba en silencio...", "emotion": "neutral" },
-        { "character": "Héroe",    "text": "¿Dónde estoy?",                  "emotion": "confused" },
-        { "character": "coso",    "text": "¿Dónde estoy? 67",                  "emotion": "confused" },
-        { "character": "Narrador", "text": "Una voz resonó entre los árboles.", "emotion": "neutral" }
+        { "character": "Narrador", "text": "El bosque estaba en silencio... Demasiado silencio", "emotion": "neutral" },
+        { "character": "Héroe", "text": "¿Dónde estoy? Mi cabeza... no recuerdo nada", "emotion": "confused" },
+        { "character": "Narrador", "text": "A sus pies, un viejo pergamino medio enterrado","emotion": "confused" },
+        { "character": "Héroe", "text": "¿Un mapa? No, solo un acertijo...", "emotion": "confused" },
+        { "character": "Anciano", "text": "¡Eh, tú! No toques eso si no quieres despertar al guardián.", "emotion": "warning" },
+        { "character": "Héroe",  "text": "¿Guardián? Solo busco salir de aquí.", "emotion": "defensive" },
+        { "character": "Anciano", "text": "Salir... ja. El único camino es adentrarte. Responde bien y tal vez la llave aparezca", "emotion": "sly" }
       ],
       "nextScene": "parte1_minigame",
       "onEnter": { "setFlag": "saw_forest" }
@@ -22,10 +25,11 @@
     "parte1_minigame": {
       "id": "parte1_minigame",
       "type": "minigame",
+      "music": "https://github.com/user-attachments/files/27403039/Minijuegos.mp3",
       "minigameType": "quiz",
       "config": {
         "question": "¿Qué encontró el héroe al despertar en el bosque?",
-        "options": ["Una espada", "Un mapa", "Una llave", "Nada"],
+        "options": ["Una espada legendaria", "Un mapa del tesoro", "Una llave antigua", "Nada, solo hojas"],
         "correctIndex": 2
       },
       "onComplete": { "setFlag": "parte1_complete", "addPoints": 100 },
@@ -35,12 +39,14 @@
     "parte2_intro": {
       "id": "parte2_intro",
       "type": "dialogue",
-      "background": "",
-      "music": "",
+      "background": "castillo",
+      "music": "https://github.com/user-attachments/files/27403042/Castillo.mp3",
       "dialogues": [
-        { "character": "Narrador", "text": "El castillo apareció entre la niebla.", "emotion": "neutral" },
-        { "character": "Héroe",    "text": "Debo entrar.",                           "emotion": "determined" },
-        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse?",            "emotion": "stern" }
+        { "character": "Narrador", "text": "El castillo apareció entre la niebla, imponente y en ruinas.", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "La llave encaja... la puerta se abre.", "emotion": "confused" },
+        { "character": "Guardián", "text": "Alto. ¿Quién osa acercarse a la cámara de los recuerdos?", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "Vengo por el tesoro. No quiero pelea.", "emotion": "confident" },
+        { "character": "Guardián", "text": "Las palabras no abren puertas. Solo la sabiduría. Ordena estos símbolos como dicta la leyenda.", "emotion": "neutral" }
       ],
       "requiredFlags": ["parte1_complete"],
       "nextScene": "parte2_minigame",
@@ -50,6 +56,7 @@
     "parte2_minigame": {
       "id": "parte2_minigame",
       "type": "minigame",
+      "music": "https://github.com/user-attachments/files/27403039/Minijuegos.mp3",
       "minigameType": "puzzle",
       "config": {
         "pieces": ["🔑", "🗺️", "📜", "💎"],
@@ -62,12 +69,16 @@
     "parte3_intro": {
       "id": "parte3_intro",
       "type": "dialogue",
-      "background": "",
-      "music": "",
+      "background": "tesoro",
+      "music": "https://github.com/user-attachments/files/27403041/SalaTesoro.mp3",
       "dialogues": [
-        { "character": "Narrador", "text": "La sala final. El destino aguarda.", "emotion": "tense" },
-        { "character": "Héroe",    "text": "No hay vuelta atrás.",               "emotion": "resolved" },
-        { "character": "Villano",  "text": "Bienvenido a tu fin.",               "emotion": "menacing" }
+        { "character": "Narrador", "text": "La sala final. El destino aguarda en la penumbra.", "emotion": "tense" },
+        { "character": "Héroe",    "text": "No hay vuelta atrás. El cofre debe estar aquí.", "emotion": "resolved" },
+        { "character": "Villano",  "text": "Bienvenido a tu fin, intruso. Llevo siglos esperando a alguien tan terco.", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "¡Tú! Fuiste tú quien me borró la memoria y me abandonó en el bosque.", "emotion": "angry" },
+        { "character": "Villano",  "text": "Correcto. Usarte como mano de obra barata. Pero ya que has llegado hasta aquí, te propongo un juego.", "emotion": "neutral" },
+        { "character": "Héroe",    "text": "¿Qué clase de juego?", "emotion": "confused" },
+        { "character": "Villano",  "text": "El de la muerte. Presiona el mecanismo en el momento exacto o el cofre explotará para siempre.", "emotion": "neutral" }
       ],
       "requiredFlags": ["parte2_complete"],
       "nextScene": "parte3_minigame",
@@ -77,6 +88,7 @@
     "parte3_minigame": {
       "id": "parte3_minigame",
       "type": "minigame",
+      "music": "https://github.com/user-attachments/files/27403039/Minijuegos.mp3",
       "minigameType": "timing",
       "config": {
         "targetMs": 2000,
@@ -90,12 +102,14 @@
     "ending": {
       "id": "ending",
       "type": "ending",
-      "background": "",
-      "music": "",
+      "background": "backroom",
+      "music": "https://github.com/user-attachments/files/27403040/Backroom.mp3",
       "dialogues": [
-        { "character": "Narrador", "text": "La oscuridad fue vencida.",             "emotion": "peaceful" },
-        { "character": "Héroe",    "text": "Por fin... en casa.",                   "emotion": "relieved" },
-        { "character": "Narrador", "text": "Y así terminó la historia del héroe.", "emotion": "neutral" }
+        { "character": "Narrador", "text": "ey... tu, que haces aqui? se supone que la historia ya termino...", "emotion": "peaceful" },
+        { "character": "Héroe",    "text": "No necesito riquezas. Recuperé mi memoria y mi camino ...un momento...", "emotion": "relieved" },
+        { "character": "Anciano",  "text": "Jugador, tu ya no tienes que estar aquí, regresa a tu mundo", "emotion": "curious" },
+        { "character": "Héroe",    "text": "¿a quien le hablas?¿quien es jugador? ", "emotion": "confused" },
+        { "character": "Narrador", "text": "sal de aqui, ¡AHORA!", "emotion": "scared" }
       ],
       "nextScene": null
     }

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ScrollView
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -108,7 +109,11 @@ export default function SavesScreen() {
           <ActivityIndicator color="#e91e8c" />
         </View>
       ) : (
-        <View className="flex-1 px-6 pt-4 gap-4">
+        <ScrollView 
+        className="flex-1 px-6 pt-4"
+        contentContainerClassName="gap-4 pb-8"
+        showsVerticalScrollIndicator={false}
+      >
           {([1, 2, 3] as const).map((slotId) => {
             const slot = slots[slotId - 1];
             const isEmpty = !slot;
@@ -161,7 +166,7 @@ export default function SavesScreen() {
               </TouchableOpacity>
             );
           })}
-        </View>
+        </ScrollView>
       )}
     </SafeAreaView>
   );

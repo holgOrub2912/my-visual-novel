@@ -31,13 +31,27 @@ import React from 'react';
 import { Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
+
+const MENU_MUSIC = 'https://github.com/user-attachments/files/27403037/Menu.mp3';
 
 export default function HomeScreen() {
   const router = useRouter();
+  useBackgroundMusic(MENU_MUSIC);
 
   return (
     <SafeAreaView className="flex-1 bg-pink-50">
       <StatusBar barStyle="dark-content" backgroundColor="#fff0f6" />
+
+    <View className="absolute right-4 top-10 z-10">
+      <TouchableOpacity
+        onPress={() => router.push('/about')}
+        className="h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm active:bg-pink-50"
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+      >
+        <Text className="text-lg font-bold text-pink-500">?</Text>
+      </TouchableOpacity>
+    </View>
 
       {/* Imagen de portada */}
       <View className="flex-1 items-center justify-center px-8">

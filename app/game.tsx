@@ -13,6 +13,60 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGameStore } from '../stores/gameStore';
 import MinigameFactory from '../components/minigames/MinigameFactory'
 import { MinigameConfig, MinigameType } from '../types/game';
+import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
+
+//TODO: Ampliar esto y sacarlo de aca
+const getBackgroundSource = (bgName: string): any => {
+  const bgMap: Record<string, any> = {
+    'fondoGen': require('../assets/backgrounds/fondoGen.png'),
+    'bosque': require('../assets/backgrounds/bosque.png'),
+    'castillo': require('../assets/backgrounds/castillo.png'),
+    'tesoro': require('../assets/backgrounds/tesoro.png'),
+    'backroom': require('../assets/backgrounds/backroom.png'),
+    'fondoGen2': require('../assets/backgrounds/fondoGen2.png')
+  };
+  
+  return bgMap[bgName] || null;
+};
+
+const PLACEHOLDER = require('../assets/characters/heroe/neutral.png'); 
+
+const getCharacterSprite = (character: string, emotion: string): any => {
+  
+  if (character === 'Narrador') return null;
+
+  
+  const charFolderMap: Record<string, string> = {
+    'Héroe':    'heroe',
+    'Guardián': 'guardian',
+    'Anciano':'anciano',
+    'Villano':'villano',
+  };
+
+  const folder = charFolderMap[character];
+
+  
+  if (!folder) return PLACEHOLDER;
+
+  // Mapa estático de los sprites disponibles
+  
+  const spriteMap: Record<string, any> = {
+    'heroe/neutral':    require('../assets/characters/heroe/neutral.png'),
+    'heroe/confused':    require('../assets/characters/heroe/confused.png'),
+    'anciano/neutral': require('../assets/characters/anciano/neutral.png'),
+    'villano/neutral': require('../assets/characters/villano/neutral.png'),
+    'guardian/neutral': require('../assets/characters/guardian/neutral.png'),
+    // 'heroe/confused':   require('../assets/characters/heroe/confused.png'),
+    // 'heroe/determined': require('../assets/characters/heroe/determined.png'),
+    // etc.
+  };
+
+  const key          = `${folder}/${emotion}`;
+  const neutralKey   = `${folder}/neutral`;
+
+  // Emoción exacta o fallback a neutral del mismo personaje o placeholder
+  return spriteMap[key] ?? spriteMap[neutralKey] ?? PLACEHOLDER;
+};
 
 export default function GameScreen() {
   const router = useRouter();
@@ -24,6 +78,8 @@ export default function GameScreen() {
     completeMinigame,
     failMinigame,
   } = useGameStore();
+
+  useBackgroundMusic(currentScene.music);
 
   // Forzar landscape al entrar, restaurar vertical al salir
   useEffect(() => {
@@ -57,7 +113,7 @@ export default function GameScreen() {
           ¡Historia completada!
         </Text>
         <Text className="text-center text-sm text-pink-400 mb-8">
-          Has terminado las 3 partes
+          La oscuridad fue vencida, pero no por la fuerza, sino por la perseverancia
         </Text>
         <TouchableOpacity
           onPress={() => router.replace('/')}
@@ -97,6 +153,13 @@ export default function GameScreen() {
   const totalLines = currentScene.dialogues?.length ?? 0;
   const isLastLine = activeSlot.currentDialogIndex >= totalLines - 1;
 
+  const characterName = dialogue?.character ?? '';
+  const emotion       = dialogue?.emotion   ?? 'neutral';
+  const spriteSource  = getCharacterSprite(characterName, emotion);
+
+  // Esta key fuerza a desmontar/montar el Image cada vez que cambia el personaje o la emocion 
+  const spriteKey = `${characterName}-${emotion}-${activeSlot.currentDialogIndex}`;
+
   return (
     <SafeAreaView className="flex-1 bg-gray-200">
       <StatusBar hidden />
@@ -104,26 +167,50 @@ export default function GameScreen() {
       {/* Fondo de escena */}
       {currentScene.background ? (
         <Image
-          source={{ uri: currentScene.background }}
+          source={getBackgroundSource(currentScene.background)}
           className="absolute inset-0 h-full w-full"
           resizeMode="cover"
         />
       ) : (
-        // Placeholder mientras no hay nadota
         <View className="absolute inset-0 items-center justify-center bg-gray-300">
           <Text className="text-6xl">🖼️</Text>
         </View>
       )}
 
-      {/* Boton menu */}
-      <View className="flex-row justify-end px-4 pt-2">
+      <View className="flex-row items-center justify-between px-4 pt-2">
+        
+        <TouchableOpacity
+          onPress={() => router.replace('/')}
+          className="h-10 w-10 items-center justify-center rounded-full bg-white/80"
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Text className="text-lg font-bold text-navy-800">✕</Text>
+        </TouchableOpacity>
+
+        {/* Botón guardado  */}
         <TouchableOpacity
           onPress={() => router.push('/saves?mode=continue')}
-          className="rounded-full bg-white/80 px-3 py-2"
+          className="h-10 w-10 items-center justify-center rounded-full bg-white/80"
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Text className="text-lg">☰</Text>
         </TouchableOpacity>
       </View>
+
+      {spriteSource && (
+        <Image
+          key={spriteKey}          
+          source={spriteSource}
+          style={{
+            position: 'absolute',
+            right: 16,
+            bottom: 80,           
+            height: '75%',
+            aspectRatio: 0.5,     
+          }}
+          resizeMode="contain"
+        />
+      )}
 
       {/* Caja de dialogo */}
       <View className="flex-1 justify-end">
